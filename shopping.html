@@ -6,60 +6,77 @@
   <title>Shopping - Find Your Partner</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
-
+<body class="bg-gray-100 text-gray-900">
   <!-- Navbar -->
-  <nav class="bg-white shadow-lg sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <!-- Home button -->
-      <a href="index.html" class="text-purple-700 font-bold text-xl hover:text-purple-900 transition">
-        Home
-      </a>
-      <!-- Cart button with count -->
-      <a href="cart.html" id="cart-btn" 
-         class="bg-purple-600 text-white px-4 py-2 rounded-xl hover:bg-purple-700 transition flex items-center gap-2">
-        🛒 Cart (0)
-      </a>
-    </div>
+  <nav class="flex justify-between items-center px-6 py-4 bg-white shadow-md sticky top-0 z-50">
+    <a href="index.html" class="text-lg font-bold text-indigo-600">🏠 Home</a>
+    <a href="cart" class="relative text-lg font-bold text-indigo-600" id="cart-btn">
+      🛒 Cart
+      <span id="cart-count" class="absolute -top-2 -right-4 bg-red-600 text-white text-xs rounded-full px-2">0</span>
+    </a>
   </nav>
 
-  <!-- Header -->
-  <header class="text-center py-10 bg-gradient-to-r from-purple-600 to-indigo-700 text-white">
-    <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Choose Your Partner</h2>
-    <p class="text-lg text-gray-200">Special discounts on your first booking ✨</p>
-  </header>
+  <!-- Hero Banner -->
+  <div class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-center py-12 shadow-lg">
+    <h1 class="text-4xl md:text-5xl font-extrabold">🔥 Special Festive Discounts 🔥</h1>
+    <p class="mt-3 text-lg">Get your dream partner at unbelievable prices. Limited time only!</p>
+  </div>
 
-  <!-- Grid of Profiles -->
-  <main class="flex-1 max-w-5xl mx-auto px-6 py-10">
-    <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-2">
-
-      <!-- Pinky -->
-      <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
-        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Pinky" class="w-full h-64 object-cover rounded-t-2xl">
-        <div class="p-4">
-          <h3 class="text-xl font-bold">Pinky</h3>
-          <p class="text-green-600 font-semibold">64% OFF on first purchase</p>
-          <p class="text-gray-700 mt-2 text-lg">₹99 / hour</p>
-          <button onclick="addToCart('Pinky', 99)" 
-                  class="mt-4 w-full bg-purple-600 text-white py-2 rounded-xl hover:bg-purple-700 transition">
-            Add to Cart
-          </button>
+  <!-- Products -->
+  <main class="p-6 grid gap-6 md:grid-cols-2">
+    <!-- Pinky -->
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition">
+      <img src="https://randomuser.me/api/portraits/women/65.jpg" class="w-full h-64 object-cover" alt="Pinky">
+      <div class="p-4">
+        <h2 class="text-2xl font-bold">Pinky</h2>
+        <p class="text-gray-600">💖 64% off on first purchase</p>
+        <p class="text-xl font-semibold mt-2">₹99 / hour</p>
+        <div class="flex items-center text-yellow-500 mt-2">
+          ⭐⭐⭐⭐☆ <span class="text-sm text-gray-500 ml-2">(4.3/5)</span>
         </div>
+        <button onclick="addToCart('Pinky', 99)" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500">
+          Add to Cart
+        </button>
       </div>
-
-      <!-- Niladri -->
-      <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
-        <img src="https://randomuser.me/api/portraits/men/28.jpg" alt="Niladri" class="w-full h-64 object-cover rounded-t-2xl">
-        <div class="p-4">
-          <h3 class="text-xl font-bold">Niladri</h3>
-          <p class="text-green-600 font-semibold">50% OFF offer</p>
-          <p class="text-gray-700 mt-2 text-lg">₹150 / hour</p>
-          <button onclick="addToCart('Niladri', 150)" 
-                  class="mt-4 w-full bg-purple-600 text-white py-2 rounded-xl hover:bg-purple-700 transition">
-            Add to Cart
-          </button>
-        </div>
-      </div>
-
     </div>
-  </mai
+
+    <!-- Niladri -->
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-full h-64 object-cover" alt="Niladri">
+      <div class="p-4">
+        <h2 class="text-2xl font-bold">Niladri</h2>
+        <p class="text-gray-600">🔥 50% off offer</p>
+        <p class="text-xl font-semibold mt-2">₹150 / hour</p>
+        <div class="flex items-center text-yellow-500 mt-2">
+          ⭐⭐⭐⭐⭐ <span class="text-sm text-gray-500 ml-2">(4.8/5)</span>
+        </div>
+        <button onclick="addToCart('Niladri', 150)" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function updateCartCount() {
+      document.getElementById("cart-count").textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+    }
+
+    function addToCart(name, price) {
+      let item = cart.find(i => i.name === name);
+      if (item) {
+        item.qty++;
+      } else {
+        cart.push({ name, price, qty: 1 });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
+      alert(name + " added to cart!");
+    }
+
+    updateCartCount();
+  </script>
+</body>
+</html>
