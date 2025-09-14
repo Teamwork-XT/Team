@@ -23,15 +23,19 @@
 
   <!-- Cart Items -->
   <main class="flex-1 max-w-4xl mx-auto px-6 py-10">
-    <table class="w-full bg-white shadow-lg rounded-xl overflow-hidden">
-      <thead class="bg-purple-600 text-white">
-        <tr>
-          <th class="p-4 text-left">Name</th>
-          <th class="p-4 text-left">Price</th>
-        </tr>
-      </thead>
-      <tbody id="cart-items" class="divide-y divide-gray-200"></tbody>
-    </table>
+    <div class="overflow-x-auto">
+      <table class="w-full bg-white shadow-lg rounded-xl overflow-hidden">
+        <thead class="bg-purple-600 text-white">
+          <tr>
+            <th class="p-4 text-left">Name</th>
+            <th class="p-4 text-left">Price</th>
+            <th class="p-4 text-left">Quantity</th>
+            <th class="p-4 text-left">Total</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items" class="divide-y divide-gray-200"></tbody>
+      </table>
+    </div>
 
     <div class="text-center mt-6">
       <button onclick="buyNow()" class="px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
@@ -55,23 +59,24 @@
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       let container = document.getElementById("cart-items");
       container.innerHTML = "";
-      cart.forEach(item => {
+      cart.forEach((item, index) => {
         container.innerHTML += `
           <tr>
             <td class="p-4">${item.name}</td>
-            <td class="p-4">₹${item.price} / hour</td>
+            <td class="p-4">₹${item.price}</td>
+            <td class="p-4 flex items-center gap-2">
+              <button onclick="changeQty(${index}, -1)" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">-</button>
+              <span>${item.qty}</span>
+              <button onclick="changeQty(${index}, 1)" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">+</button>
+            </td>
+            <td class="p-4">₹${item.price * item.qty}</td>
           </tr>
         `;
       });
     }
 
-    function buyNow() {
-      localStorage.removeItem("cart");
-      document.getElementById("cart-items").innerHTML = "";
-      document.getElementById("success").classList.remove("hidden");
-    }
-
-    loadCart();
-  </script>
-</body>
-</html>
+    function changeQty(index, delta) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (cart[index]) {
+        cart[index].qty += delta;
+        if (cart
