@@ -2,105 +2,216 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shopping - Find Your Partner</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cart {
+      position: relative;
+      font-weight: bold;
+      color: #333;
+    }
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -15px;
+      background: red;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+    .banner {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(90deg, #7f00ff, #e100ff);
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;  /* 👈 fixes blur/stretch */
+      display: block;
+    }
+    .card-content {
+      padding: 15px;
+    }
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: #333;
+    }
+    .price {
+      font-weight: bold;
+      margin: 8px 0;
+      color: #222;
+    }
+    .offer {
+      font-size: 14px;
+      color: #e63946;
+    }
+    .stars {
+      color: #f4c150;
+      margin: 6px 0;
+    }
+    button {
+      background: #7f00ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
+    button:hover {
+      background: #6000cc;
+    }
+    /* Small screen fix */
+    @media(max-width: 500px) {
+      .card img { height: 180px; }
+    }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
-  <!-- Navbar -->
-  <nav class="flex justify-between items-center px-6 py-4 bg-white shadow-md sticky top-0 z-50">
-    <a href="index.html" class="text-lg font-bold text-indigo-600">🏠 Home</a>
-    <a href="cart" class="relative text-lg font-bold text-indigo-600" id="cart-btn">
-      🛒 Cart
-      <span id="cart-count" class="absolute -top-2 -right-4 bg-red-600 text-white text-xs rounded-full px-2">0</span>
+<body>
+  <header>
+    <a href="../index.html"><i class="fa fa-home"></i> Home</a>
+    <a href="../cart/" class="cart">
+      <i class="fa fa-shopping-cart"></i> Cart
+      <span class="cart-count" id="cart-count">0</span>
     </a>
-  </nav>
+  </header>
 
-  <!-- Hero Banner -->
-  <div class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-center py-12 shadow-lg">
-    <h1 class="text-4xl md:text-5xl font-extrabold">🔥 Special Festive Discounts 🔥</h1>
-    <p class="mt-3 text-lg">Get your dream partner at unbelievable prices. Limited time only!</p>
-  </div>
+  <div class="banner">🔥 Special Festive Discounts 🔥</div>
 
-  <!-- Products -->
-  <main class="p-6 grid gap-6 md:grid-cols-2">
-    <!-- Pinky -->
-    <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition">
-      <img src="https://randomuser.me/api/portraits/women/65.jpg" class="w-full h-48 object-cover rounded-t-2xl" alt="Pinky">
-      <div class="p-4">
-        <h2 class="text-2xl font-bold">Pinky</h2>
-        <p class="text-gray-600">💖 64% off on first purchase</p>
-        <p class="text-xl font-semibold mt-2">₹99 / hour</p>
-        <div class="flex items-center text-yellow-500 mt-2">
-          ⭐⭐⭐⭐☆ <span class="text-sm text-gray-500 ml-2">(4.3/5)</span>
-        </div>
-        <button onclick="addToCart('Pinky', 99)" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500">
-          Add to Cart
-        </button>
-      </div>
-    </div>
-
-    <!-- Niladri -->
-    <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition">
-      <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-full h-48 object-cover rounded-t-2xl" alt="Niladri">
-      <div class="p-4">
-        <h2 class="text-2xl font-bold">Niladri</h2>
-        <p class="text-gray-600">🔥 50% off offer</p>
-        <p class="text-xl font-semibold mt-2">₹150 / hour</p>
-        <div class="flex items-center text-yellow-500 mt-2">
-          ⭐⭐⭐⭐⭐ <span class="text-sm text-gray-500 ml-2">(4.8/5)</span>
-        </div>
-        <button onclick="addToCart('Niladri', 150)" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500">
-          Add to Cart
-        </button>
-      </div>
-    </div>
-  </main>
-
-  <!-- Added to Cart Toast -->
-  <div id="toast" class="hidden fixed bottom-5 right-5 bg-white border border-gray-300 shadow-lg rounded-lg p-4 flex items-center gap-4">
-    <div>
-      <p class="font-semibold" id="toast-text"></p>
-      <a href="cart" class="text-indigo-600 font-bold hover:underline">Go to Cart →</a>
-    </div>
-  </div>
+  <div class="products" id="products"></div>
 
   <script>
+    const products = [
+      {
+        name: "Pinky",
+        img: "https://source.unsplash.com/400x400/?woman,portrait",
+        offer: "❤️ 64% off on first purchase",
+        price: 99,
+        rating: 4.3
+      },
+      {
+        name: "Niladri",
+        img: "https://source.unsplash.com/400x400/?man,portrait",
+        offer: "🔥 50% off offer",
+        price: 150,
+        rating: 4.8
+      },
+      {
+        name: "Sushanti Saren",
+        img: "https://source.unsplash.com/400x400/?girl,portrait",
+        offer: "✨ 50% off offer",
+        price: 70,
+        rating: 4.0
+      }
+    ];
+
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    function updateCartCount() {
-  // If cart was cleared in cart page
-  if (localStorage.getItem("cartCleared") === "true") {
-    localStorage.removeItem("cartCleared");
-    cart = [];
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }
-  document.getElementById("cart-count").textContent = cart.reduce((sum, item) => sum + item.qty, 0);
-}
-
-
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      document.getElementById("toast-text").textContent = message;
-      toast.classList.remove("hidden");
-
-      setTimeout(() => {
-        toast.classList.add("hidden");
-      }, 2500);
+    function renderProducts() {
+      const container = document.getElementById("products");
+      container.innerHTML = "";
+      products.forEach((p, index) => {
+        container.innerHTML += `
+          <div class="card">
+            <img src="${p.img}" alt="${p.name}">
+            <div class="card-content">
+              <h3>${p.name}</h3>
+              <div class="offer">${p.offer}</div>
+              <div class="price">₹${p.price} / hour</div>
+              <div class="stars">${"★".repeat(Math.floor(p.rating))}${"☆".repeat(5 - Math.floor(p.rating))} (${p.rating}/5)</div>
+              <button onclick="addToCart(${index})">Add to Cart</button>
+            </div>
+          </div>`;
+      });
     }
 
-    function addToCart(name, price) {
-      let item = cart.find(i => i.name === name);
-      if (item) {
-        item.qty++;
+    function addToCart(i) {
+      let item = products[i];
+      let existing = cart.find(p => p.name === item.name);
+      if (existing) {
+        existing.qty++;
       } else {
-        cart.push({ name, price, qty: 1 });
+        cart.push({...item, qty: 1});
       }
       localStorage.setItem("cart", JSON.stringify(cart));
       updateCartCount();
-      showToast(`${name} added to your cart`);
+      showToast(`${item.name} added to cart`);
     }
 
+    function updateCartCount() {
+      if (localStorage.getItem("cartCleared") === "true") {
+        localStorage.removeItem("cartCleared");
+        cart = [];
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+      document.getElementById("cart-count").textContent = cart.reduce((s, i) => s + i.qty, 0);
+    }
+
+    function showToast(msg) {
+      let toast = document.createElement("div");
+      toast.textContent = msg;
+      toast.style.position = "fixed";
+      toast.style.bottom = "20px";
+      toast.style.right = "20px";
+      toast.style.background = "#333";
+      toast.style.color = "#fff";
+      toast.style.padding = "12px 18px";
+      toast.style.borderRadius = "8px";
+      toast.style.boxShadow = "0 3px 8px rgba(0,0,0,0.3)";
+      toast.style.zIndex = "9999";
+      document.body.appendChild(toast);
+      setTimeout(()=>toast.remove(),2000);
+    }
+
+    renderProducts();
     updateCartCount();
   </script>
 </body>
