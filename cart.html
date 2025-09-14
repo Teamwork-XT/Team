@@ -37,10 +37,10 @@
               <h2 class="text-xl font-bold">${item.name}</h2>
               <p class="text-gray-600">₹${item.price} / hour</p>
             </div>
-            <div class="flex items-center gap-3">
-              <button onclick="changeQty(${index}, -1)" class="px-3 py-1 bg-gray-300 rounded">-</button>
-              <span>${item.qty}</span>
-              <button onclick="changeQty(${index}, 1)" class="px-3 py-1 bg-gray-300 rounded">+</button>
+            <div class="flex items-center gap-3 border-2 border-yellow-400 rounded-full px-3 py-1">
+              <button onclick="removeItem(${index})" class="text-red-600">🗑</button>
+              <span class="mx-2">${item.qty}</span>
+              <button onclick="changeQty(${index}, 1)" class="text-green-600">+</button>
             </div>
           </div>
         `;
@@ -53,6 +53,11 @@
     function changeQty(index, delta) {
       cart[index].qty += delta;
       if (cart[index].qty <= 0) cart.splice(index, 1);
+      renderCart();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
       renderCart();
     }
 
