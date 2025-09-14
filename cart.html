@@ -67,7 +67,7 @@
       renderCart();
       document.getElementById("total").textContent = "0";
       confetti();
-      alert("🎉 Successfully Purchased!");
+      localStorage.setItem("cartCleared", "true");
     }
 
     renderCart();
