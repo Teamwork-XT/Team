@@ -26,7 +26,7 @@
   <main class="p-6 grid gap-6 md:grid-cols-2">
     <!-- Pinky -->
     <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition">
-      <img src="https://randomuser.me/api/portraits/women/65.jpg" class="w-full h-64 object-cover" alt="Pinky">
+      <img src="https://randomuser.me/api/portraits/women/65.jpg" class="w-full h-48 object-cover rounded-t-2xl" alt="Pinky">
       <div class="p-4">
         <h2 class="text-2xl font-bold">Pinky</h2>
         <p class="text-gray-600">💖 64% off on first purchase</p>
@@ -42,7 +42,7 @@
 
     <!-- Niladri -->
     <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition">
-      <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-full h-64 object-cover" alt="Niladri">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-full h-48 object-cover rounded-t-2xl" alt="Niladri">
       <div class="p-4">
         <h2 class="text-2xl font-bold">Niladri</h2>
         <p class="text-gray-600">🔥 50% off offer</p>
@@ -57,11 +57,29 @@
     </div>
   </main>
 
+  <!-- Added to Cart Toast -->
+  <div id="toast" class="hidden fixed bottom-5 right-5 bg-white border border-gray-300 shadow-lg rounded-lg p-4 flex items-center gap-4">
+    <div>
+      <p class="font-semibold" id="toast-text"></p>
+      <a href="cart" class="text-indigo-600 font-bold hover:underline">Go to Cart →</a>
+    </div>
+  </div>
+
   <script>
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     function updateCartCount() {
       document.getElementById("cart-count").textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      document.getElementById("toast-text").textContent = message;
+      toast.classList.remove("hidden");
+
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 2500);
     }
 
     function addToCart(name, price) {
@@ -73,7 +91,7 @@
       }
       localStorage.setItem("cart", JSON.stringify(cart));
       updateCartCount();
-      alert(name + " added to cart!");
+      showToast(`${name} added to your cart`);
     }
 
     updateCartCount();
