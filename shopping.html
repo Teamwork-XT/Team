@@ -11,13 +11,14 @@
   <!-- Navbar -->
   <nav class="bg-white shadow-lg sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <!-- Home button (left-most) -->
+      <!-- Home button -->
       <a href="index.html" class="text-purple-700 font-bold text-xl hover:text-purple-900 transition">
         Home
       </a>
-      <!-- Cart button (right-most) -->
-      <a href="cart.html" class="bg-purple-600 text-white px-4 py-2 rounded-xl hover:bg-purple-700 transition flex items-center gap-2">
-        🛒 Cart
+      <!-- Cart button with count -->
+      <a href="cart.html" id="cart-btn" 
+         class="bg-purple-600 text-white px-4 py-2 rounded-xl hover:bg-purple-700 transition flex items-center gap-2">
+        🛒 Cart (0)
       </a>
     </div>
   </nav>
@@ -61,21 +62,4 @@
       </div>
 
     </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-white shadow-inner py-6 text-center text-gray-500">
-    © 2025 PartnerShop. All rights reserved.
-  </footer>
-
-  <!-- JS for Cart -->
-  <script>
-    function addToCart(name, price) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.push({ name, price });
-      localStorage.setItem("cart", JSON.stringify(cart));
-      alert(name + " has been added to cart!");
-    }
-  </script>
-</body>
-</html>
+  </mai
