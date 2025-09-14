@@ -69,8 +69,15 @@
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     function updateCartCount() {
-      document.getElementById("cart-count").textContent = cart.reduce((sum, item) => sum + item.qty, 0);
-    }
+  // If cart was cleared in cart page
+  if (localStorage.getItem("cartCleared") === "true") {
+    localStorage.removeItem("cartCleared");
+    cart = [];
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+  document.getElementById("cart-count").textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+}
+
 
     function showToast(message) {
       const toast = document.getElementById("toast");
