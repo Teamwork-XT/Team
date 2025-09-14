@@ -11,12 +11,12 @@
   <!-- Navbar -->
   <nav class="bg-white shadow-lg sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <!-- Home button -->
+      <!-- Home button (left-most) -->
       <a href="index.html" class="text-purple-700 font-bold text-xl hover:text-purple-900 transition">
         Home
       </a>
-      <!-- Cart button -->
-      <a href="cart/" class="bg-purple-600 text-white px-4 py-2 rounded-xl hover:bg-purple-700 transition flex items-center gap-2">
+      <!-- Cart button (right-most) -->
+      <a href="cart.html" class="bg-purple-600 text-white px-4 py-2 rounded-xl hover:bg-purple-700 transition flex items-center gap-2">
         🛒 Cart
       </a>
     </div>
@@ -39,7 +39,10 @@
           <h3 class="text-xl font-bold">Pinky</h3>
           <p class="text-green-600 font-semibold">64% OFF on first purchase</p>
           <p class="text-gray-700 mt-2 text-lg">₹99 / hour</p>
-          <button class="mt-4 w-full bg-purple-600 text-white py-2 rounded-xl hover:bg-purple-700 transition">Add to Cart</button>
+          <button onclick="addToCart('Pinky', 99)" 
+                  class="mt-4 w-full bg-purple-600 text-white py-2 rounded-xl hover:bg-purple-700 transition">
+            Add to Cart
+          </button>
         </div>
       </div>
 
@@ -50,7 +53,10 @@
           <h3 class="text-xl font-bold">Niladri</h3>
           <p class="text-green-600 font-semibold">50% OFF offer</p>
           <p class="text-gray-700 mt-2 text-lg">₹150 / hour</p>
-          <button class="mt-4 w-full bg-purple-600 text-white py-2 rounded-xl hover:bg-purple-700 transition">Add to Cart</button>
+          <button onclick="addToCart('Niladri', 150)" 
+                  class="mt-4 w-full bg-purple-600 text-white py-2 rounded-xl hover:bg-purple-700 transition">
+            Add to Cart
+          </button>
         </div>
       </div>
 
@@ -61,5 +67,15 @@
   <footer class="bg-white shadow-inner py-6 text-center text-gray-500">
     © 2025 PartnerShop. All rights reserved.
   </footer>
+
+  <!-- JS for Cart -->
+  <script>
+    function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name, price });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(name + " has been added to cart!");
+    }
+  </script>
 </body>
 </html>
